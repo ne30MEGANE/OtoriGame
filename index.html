@@ -3,29 +3,31 @@
 
 <head>
     <meta charset="UTF8">
-    <title>ガバ神経衰弱</title>
+    <title>ガバカードマッチング</title>
     <link rel="stylesheet" type="text/css" href="https://mtsgi.github.io/kitstrap/d/kitstrap.css">
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="script.js"></script>
 </head>
 
 <body>
-    <h1>神経よわよわゲーム</h1>
+    <h1>神経衰弱ゲーム！</h1>
     <div id="howto">
         <h2>遊び方</h2>
         <p>
             全て同じ絵柄のペアを揃えたらかちです！
         </p>
     </div>
-    <form>
+    <form id="difficulty">
         <label><input type="radio" name="diff" value="EASY">かんたん</label>
         <label><input type="radio" name="diff" value="NORMAL">ふつう</label>
         <label><input type="radio" name="diff" value="HARD">むずかしい</label>
         <br>
-        <input type="submit" value="ゲームスタート">
+        <label id="error"></label>
+        <br>
+        <button type="button" id="startbutton">ゲームスタート</button>
     </form>
     <div id="gamearea">
-        <p>まだゲームはないです</p>
+
     </div>
 
     <div id="info">
@@ -35,8 +37,9 @@
         </p>
     </div>
     <footer>
-        <a href="https://ne30megane.github.io/SimpleTypingGame/" target=" _blank">タイピングゲームを遊んでみる</a>
-        <br>
+        <p class="link">
+            <a href="https://ne30megane.github.io/SimpleTypingGame/" target=" _blank">タイピングゲームを遊んでみる</a>
+        </p>
         <p>
             制作 めがね<a href="https://twitter.com/kina_tn" class="kit-button">twitter</a>
             <a href="https://ne30megane.github.io/minipro_web/" class="kit-button limegreen">Web</a>

@@ -8,8 +8,24 @@ body,
 footer {
     margin-top: auto;
     color: whitesmoke;
-    background-color: #5baa5b;
-    padding-top: 20px;
+    background-color: #378537;
+    padding-top: 15px;
+}
+
+.link a {
+    color: yellow;
+}
+
+.link a:visited {
+    color: brown;
+}
+
+#error {
+    color: #378537;
+}
+
+#difficulty {
+    margin: 3%;
 }
 
 body {
@@ -27,4 +43,14 @@ h1 {
 h2 {
     border-bottom: dotted #5baa5b 10px;
     padding-left: 10px;
+}
+
+#diff {
+    padding: 10px 0px 0px;
+}
+
+#gamearea {
+    padding: 5%;
+    margin: auto;
+    background-color: white;
 }
