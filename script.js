@@ -3,7 +3,9 @@ window.onload = Main;
 let gameArea;
 let errorArea;
 let startButton;
+let restartButton;
 let selectedDiff;
+let re;
 
 let nowPlaying = false;
 let difficulty;
@@ -14,14 +16,21 @@ let firstFlg = true;
 let firstCard;
 let unitCount = 0;
 
+let startTime;
+let timer; //経過秒数
+let backTimer; //カードをめくる時間
+
 function Main() {
     gameArea = document.getElementById("gamearea");
 
     errorArea = document.getElementById('error');
     difficulty = document.getElementsByName('diff');
+    re = document.getElementById('result');
 
     startButton = document.getElementById('startbutton');
     startButton.addEventListener("click", buttonAction);
+    restartButton = document.getElementById('restartbutton');
+    restartButton.addEventListener("click", restartAction);
 
 };
 
@@ -29,10 +38,43 @@ function Main() {
 function turn(e) {
     let div = e.target;
     if (nowPlaying) {
+        if (backTimer) return; //カードのタイマー作動中の時
+
         if (div.innerHTML == "") {
             div.className = "card";
             div.innerHTML = div.number;
+        } else {
+            return;
         }
+        if (firstFlg) { //１枚目のカードなら
+            firstCard = div;
+            firstFlg = false;
+        } else { //２枚目のカードなら
+            if (firstCard.number == div.number) { //一致した時
+                unitCount++;
+                backTimer = setTimeout(function() {
+                    div.className = 'finish';
+                    firstCard.className = 'finish';
+                    backTimer = NaN;
+
+                    if (countUnit == diffNumber) { //クリア
+                        nowPlaying = false;
+                        clearInterval(timer);
+                        changingDisable();
+                    }
+                }, 500)
+            } else { //一致しない時
+                backTimer = setTimeout(function() {
+                    div.className = 'back';
+                    div.innerHTML = '';
+                    firstCard.className = 'back';
+                    firstCard.innerHTML = '';
+                    firstCard = null;
+                    backTimer = NaN;
+                }, 500);
+            }
+        }
+        firstFlg = true;
     }
 }
 
@@ -52,9 +94,33 @@ function buttonAction() {
         createTarget(selectedDiff); //問題生成
         unitCount = 0;
 
-        console.log(selectedDiff); //for debuf
-
+        startTime = new Date();
+        timerStart();
     }
+}
+
+function restartAction() {
+    nowPlaying = false;
+    clearInterval(timer);
+    numbers = [];
+    cards = [];
+    while (gameArea.firstChild) {
+        gameArea.removeChild(gameArea.firstChild);
+    }
+    re.innerHTML = "時間: -"
+    changingDisable();
+}
+
+function timerStart() {
+    timer = setInterval(showSecond, 1000);
+}
+
+function showSecond() {
+    let nowTime = new Date();
+    let elapsedTime = Math.floor((nowTime - startTime) / 1000);
+    let str = '時間: ' + elapsedTime + '秒';
+
+    re.innerHTML = str;
 }
 
 function changingDisable() {
@@ -75,10 +141,10 @@ function changingDisable() {
 function createTarget(d) {
     switch (d) { //まず難易度から問題作成用の数字を決定
         case "EASY":
-            diffNumber = 4;
+            diffNumber = 6;
             break;
         case "NORMAL":
-            diffNumber = 8;
+            diffNumber = 9;
             break;
         case "HARD":
             diffNumber = 12;
@@ -98,7 +164,6 @@ function CreateNumbers(n) { //問題用の番号を生成
         numbers.push(i);
     }
     shuffleNumbers(numbers);
-    console.log(numbers); //for debug
 }
 
 function shuffleNumbers(arr) { //シャッフル用
@@ -125,5 +190,4 @@ function CreateTable() {
         gameArea.appendChild(div);
         cards.push(div);
     }
-    console.log(cards); //for debug
 }
