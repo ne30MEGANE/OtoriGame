@@ -1,23 +1,53 @@
-body,
-#wrapper {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
 footer {
-    margin-top: auto;
     color: whitesmoke;
     background-color: #378537;
     padding-top: 15px;
 }
 
-.link a {
-    color: yellow;
+#gamearea {
+    padding: 5%;
+    margin: auto;
+    background-color: white;
+    width: 450px;
+    height: 350px;
+    overflow: hidden;
 }
 
-.link a:visited {
-    color: brown;
+.card {
+    width: 100px;
+    height: 130px;
+    line-height: 80px;
+    border: 1px solid silver;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 26px;
+    font-weight: bold;
+    box-shadow: gray 2px 2px;
+    background: white;
+    float: left;
+    cursor: pointer;
+    margin: 2px;
+}
+
+
+/* 裏の状態 */
+
+.back {
+    border-radius: 10px;
+    margin: 2px;
+    float: left;
+    background-image: url('img/back.jpeg');
+    border: gray solid 1px;
+    width: 100px;
+    height: 130px;
+}
+
+
+/* 終了時 */
+
+.finish {
+    opacity: 0;
+    cursor: default;
 }
 
 #error {
@@ -25,7 +55,7 @@ footer {
 }
 
 #difficulty {
-    margin: 3%;
+    margin: 2%;
 }
 
 body {
@@ -41,7 +71,7 @@ h1 {
 }
 
 h2 {
-    border-bottom: dotted #5baa5b 10px;
+    border-bottom: dotted #5baa5b 3px;
     padding-left: 10px;
 }
 
@@ -49,8 +79,7 @@ h2 {
     padding: 10px 0px 0px;
 }
 
-#gamearea {
-    padding: 5%;
-    margin: auto;
-    background-color: white;
+#info,
+#howto {
+    margin: 5%;
 }

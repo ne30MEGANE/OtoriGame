@@ -1,19 +1,21 @@
 window.onload = Main;
 
-let GameArea;
-let CardArea;
+let gameArea;
 let errorArea;
 let startButton;
 let selectedDiff;
 
+let nowPlaying = false;
 let difficulty;
 let diffNumber;
-
+let numbers = [];
+let cards = [];
+let firstFlg = true;
+let firstCard;
+let unitCount = 0;
 
 function Main() {
-    GameArea = document.getElementById("gamearea");
-    CreateTable();
-    GameArea.appendChild(CardArea);
+    gameArea = document.getElementById("gamearea");
 
     errorArea = document.getElementById('error');
     difficulty = document.getElementsByName('diff');
@@ -23,18 +25,15 @@ function Main() {
 
 };
 
-function CreateTable() {
-    CardArea = document.createElement('table');
-    for (let i = 0; i < 4; i++) {
-        let tr = document.createElement('tr');
-        for (let j = 0; j < 7; j++) {
-            let td = document.createElement('td');
-            td.textContent = "( " + i + " , " + j + " )"
-            tr.appendChild(td);
-        }
-        CardArea.appendChild(tr);
-    }
 
+function turn(e) {
+    let div = e.target;
+    if (nowPlaying) {
+        if (div.innerHTML == "") {
+            div.className = "card";
+            div.innerHTML = div.number;
+        }
+    }
 }
 
 function buttonAction() {
@@ -48,10 +47,29 @@ function buttonAction() {
     if (selectedDiff == undefined) { // 未選択の時
         errorArea.innerHTML = "難易度を選んでください。";
     } else { //正しく難易度が選ばれている場合
+        nowPlaying = true;
+        changingDisable();
         createTarget(selectedDiff); //問題生成
-        console.log(diffNumber);
-    }
+        unitCount = 0;
 
+        console.log(selectedDiff); //for debuf
+
+    }
+}
+
+function changingDisable() {
+    let forms = new Array(document.getElementById('easy'),
+        document.getElementById('normal'),
+        document.getElementById('hard'));
+    if (nowPlaying) { //プレイ中
+        for (let i = 0; i < 3; i++) {
+            forms[i].disabled = true;
+        }
+    } else { //プレイ中以外
+        for (let i = 0; i < 3; i++) {
+            forms[i].disabled = false;
+        }
+    }
 }
 
 function createTarget(d) {
@@ -69,4 +87,43 @@ function createTarget(d) {
             break;
     }
     //以下に問題生成の処理を書く
+    CreateNumbers(diffNumber);
+    CreateTable(); //カードを表示
+}
+
+function CreateNumbers(n) { //問題用の番号を生成
+    numbers = [];
+    for (var i = 0; i < n; i++) { // n組みのペアの数字
+        numbers.push(i);
+        numbers.push(i);
+    }
+    shuffleNumbers(numbers);
+    console.log(numbers); //for debug
+}
+
+function shuffleNumbers(arr) { //シャッフル用
+    var n = arr.length;
+    var temp, i;
+
+    while (n) {
+        i = Math.floor(Math.random() * n--);
+        temp = arr[n];
+        arr[n] = arr[i];
+        arr[i] = temp;
+    }
+    return arr;
+}
+
+function CreateTable() {
+    for (let i = 0; i < diffNumber * 2; i++) {
+        let div = document.createElement('div');
+        div.className = 'back'
+        div.index = i;
+        div.number = numbers[i];
+        div.innerHTML = "";
+        div.onclick = turn;
+        gameArea.appendChild(div);
+        cards.push(div);
+    }
+    console.log(cards); //for debug
 }
