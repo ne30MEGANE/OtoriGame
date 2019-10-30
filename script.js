@@ -67,7 +67,7 @@ function turn(e) {
                         while (gameArea.firstChild) {
                             gameArea.removeChild(gameArea.firstChild);
                         } //一旦カード全部消す
-                        gameArea.innerHTML = "クリア！<br>時間: " + elapsedTime + "秒<br>カードをめくった回数: " + turnCount;
+                        gameArea.innerHTML = "クリア！<br>時間: " + elapsedTime + "秒<br>カードをめくった回数: " + turnCount + "回";
                     }
                 }, 500)
             } else { //一致しない時
