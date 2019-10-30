@@ -15,9 +15,11 @@ let cards = [];
 let firstFlg = true;
 let firstCard;
 let unitCount = 0;
+let turnCount = 0;
 
 let startTime;
 let timer; //経過秒数
+let elapsedTime;
 let backTimer; //カードをめくる時間
 
 function Main() {
@@ -43,6 +45,7 @@ function turn(e) {
         if (div.innerHTML == "") {
             div.className = "card";
             div.innerHTML = div.number;
+            turnCount += 1;
         } else {
             return;
         }
@@ -57,10 +60,14 @@ function turn(e) {
                     firstCard.className = 'finish';
                     backTimer = NaN;
 
-                    if (countUnit == diffNumber) { //クリア
+                    if (unitCount == diffNumber) { //クリア
                         nowPlaying = false;
                         clearInterval(timer);
                         changingDisable();
+                        while (gameArea.firstChild) {
+                            gameArea.removeChild(gameArea.firstChild);
+                        } //一旦カード全部消す
+                        gameArea.innerHTML = "クリア！<br>時間: " + elapsedTime + "秒<br>カードをめくった回数: " + turnCount;
                     }
                 }, 500)
             } else { //一致しない時
@@ -73,8 +80,8 @@ function turn(e) {
                     backTimer = NaN;
                 }, 500);
             }
+            firstFlg = true;
         }
-        firstFlg = true;
     }
 }
 
@@ -89,11 +96,13 @@ function buttonAction() {
     if (selectedDiff == undefined) { // 未選択の時
         errorArea.innerHTML = "難易度を選んでください。";
     } else { //正しく難易度が選ばれている場合
+        restartAction();
+
         nowPlaying = true;
         changingDisable();
         createTarget(selectedDiff); //問題生成
         unitCount = 0;
-
+        turnCount = 0;
         startTime = new Date();
         timerStart();
     }
@@ -101,14 +110,15 @@ function buttonAction() {
 
 function restartAction() {
     nowPlaying = false;
+    changingDisable();
     clearInterval(timer);
+
     numbers = [];
     cards = [];
     while (gameArea.firstChild) {
         gameArea.removeChild(gameArea.firstChild);
     }
     re.innerHTML = "時間: -"
-    changingDisable();
 }
 
 function timerStart() {
@@ -117,7 +127,7 @@ function timerStart() {
 
 function showSecond() {
     let nowTime = new Date();
-    let elapsedTime = Math.floor((nowTime - startTime) / 1000);
+    elapsedTime = Math.floor((nowTime - startTime) / 1000);
     let str = '時間: ' + elapsedTime + '秒';
 
     re.innerHTML = str;

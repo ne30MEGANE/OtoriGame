@@ -5,6 +5,8 @@
     width: 580px;
     height: 506px;
     overflow: hidden;
+    color: #5baa5b;
+    font-size: xx-large;
 }
 
 .card {
@@ -40,8 +42,12 @@
 /* 終了時 */
 
 .finish {
+    margin: 3px;
+    float: left;
     opacity: 0;
     cursor: default;
+    width: 90px;
+    height: 120px;
 }
 
 #error {
