@@ -1,9 +1,3 @@
-footer {
-    color: whitesmoke;
-    background-color: #378537;
-    padding-top: 15px;
-}
-
 #gamearea {
     padding: 5%;
     margin: auto;
@@ -82,4 +76,8 @@ h2 {
 #info,
 #howto {
     margin: 5%;
+}
+
+footer {
+    padding-top: 15px;
 }
