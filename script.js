@@ -172,7 +172,7 @@ function createTarget(d) {
 
 function CreateNumbers(n) { //問題用の番号を生成
     numbers = [];
-    for (var i = 0; i < n; i++) { // n組みのペアの数字
+    for (var i = 1; i <= n; i++) { // n組みのペアの数字
         numbers.push(i);
         numbers.push(i);
     }
