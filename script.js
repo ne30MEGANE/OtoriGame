@@ -67,7 +67,10 @@ function turn(e) {
                         while (gameArea.firstChild) {
                             gameArea.removeChild(gameArea.firstChild);
                         } //一旦カード全部消す
-                        gameArea.innerHTML = "クリア！<br>時間: " + elapsedTime + "秒<br>カードをめくった回数: " + turnCount + "回";
+                        let tweet = "https://twitter.com/intent/tweet?text=難易度" + selectedDiff + "を" + elapsedTime + "秒でクリアしました。%20めくった回数：" + turnCount + "回%0a%23ガバ神経衰弱%0a&url=https://ne30megane.github.io/OtoriGame/";
+                        let clearMessage = "クリア！<br>時間: " + elapsedTime + "秒<br>カードをめくった回数: " +
+                            turnCount + '回<br><a href="' + tweet + '" target = "_blank " class="kit-button " > ツイート</a >';
+                        gameArea.innerHTML = clearMessage;
                     }
                 }, 500)
             } else { //一致しない時
