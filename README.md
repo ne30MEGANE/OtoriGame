@@ -12,4 +12,4 @@ EDPSの鳳祭展示企画へ出展する神経衰弱ゲームです。
 
 <hr>
 
-[プレイ](https://ne30megane.github.io/OtoriGame/)
+[プレイはこちら](https://ne30megane.github.io/OtoriGame/)
